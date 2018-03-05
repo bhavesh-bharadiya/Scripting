@@ -1,0 +1,13 @@
+- hosts: SERVERS
+  name: network_bonding
+  gather_facts: no
+
+  tasks:
+    - name: Transfer the RHEL Bonding script
+      copy: src=rhel_bond_script.sh dest=/home mode=0777
+
+    - name: Transfer the SLES Bonding script
+      copy: src=sles_bond_script.sh dest=/home mode=0777
+
+    - name: Execute the SLES Bonding script(checks OS then decides which script to execute)
+      shell: sh /home/sles_bond_script.sh {{interface1}} {{interface2}}>> yml.log
