@@ -1,0 +1,13 @@
+- hosts: SERVERS
+  name: usb_sanity
+  gather_facts: no
+
+  tasks:
+    - name: Transfer the usb sanity script
+      copy: src=usb_sanity_script.sh dest=/home mode=0777
+
+    - name: Transfer the iomonkey tool
+      copy: src=iomonkey_x64 dest=/home mode=0777
+
+    - name: Execute the usb sanity script
+      shell: sh /home/usb_sanity_script.sh >> yml.log
